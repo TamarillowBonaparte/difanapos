@@ -1,54 +1,50 @@
 <?php
-require('koneksi.php');
 
-session_start();
+    require ('koneksi.php');
 
-if (isset($_POST['submit'])) {
-
-    $email = $_POST['txt_username'];
-    $pass = $_POST['txt_pass'];
+    session_start();
     
-    $emailCheck = mysqli_real_escape_string($koneksi, $email);
-    $passCheck = mysqli_real_escape_string($koneksi, $pass);
-    
+    if(isset($_POST['submit'])){
 
-    if (!empty(trim($email)) && !empty(trim($pass))) {
+        $email = $_POST['txt_username'];
+        $pass = $_POST['txt_pass'];
 
-        //select data berdasarkan username dari database
-        $query = "SELECT * FROM user_detail WHERE user_email = '$email'";
-        $result = mysqli_query($koneksi, $query);
-        $num = mysqli_num_rows($result);
+        $emailCheck = mysqli_real_escape_string($koneksi, $email);
+        $passCheck = mysqli_real_escape_string($koneksi, $pass);
 
-        while ($row = mysqli_fetch_array($result)) {
+        if(!empty (trim($email)) && !empty(trim($pass))) {
 
-            $id = $row['id'];
-            $userVal = $row['user_email'];
-            $passVal = $row['user_password'];
-            $userName = $row['user_fullname'];
-            $level = $row['level'];
-        }
-        if ($num != 0) {
-            if ($userVal == $email && $passVal == $pass) {
+            $query = "SELECT * FROM user WHERE username = '$email'";
+            $result = mysqli_query($koneksi, $query);
+            $num = mysqli_num_rows($result);
 
-                $_SESSION['id'] = $id;
-                $_SESSION['name'] = $userName;
-                $_SESSION['level'] = $level;
-                header('Location: home.php');
-            } else {
-                $error = 'user atau pass salah!!';
-                //header('Location: index.php');
+            while ($row = mysqli_fetch_array($result)) {
+                $id = $row['id'];
+                $userVal = $row['user_email'];
+                $passVal = $row['user_password'];
+                $userName = $row['user_fullname'];
+                $level = $row['id'];
+            }
+
+            if($num != 0 ) {
+                if($userVal == $email && $passVal == $pass) {
+
+                    // header('Location: home.php');
+                    $_SESSION['id'] = $id;
+                    $_SESSION['name'] = $userName;
+                    $_SESSION['level'] = $level;
+                    header('Location: home.php');
+                } else {
+
+                    $error = 'user atau password salah!!';
+                }
             }
         } else {
-            $error = 'user tidak ditemukan';
-            //header('Location: index.php');
-        }
-    } else {
-        $error = 'Data tidak boleh kosong';
-       // echo $error;
-    }
-}
-?>
 
+            $error = 'Data tidak boleh kosong !!';
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,7 +56,7 @@ if (isset($_POST['submit'])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>DIFANA POS</title>
+    <title>SB Admin 2 - Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -70,9 +66,6 @@ if (isset($_POST['submit'])) {
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <!-- <link href="css/login.css" rel="stylesheet"> -->
-
-    
 
 </head>
 
@@ -100,7 +93,7 @@ if (isset($_POST['submit'])) {
                                             <label for="inputEmail">Username</label>
                                                 <input class="form-control" type="text" placeholder="username" name="txt_username"/>
                                                 <!-- <label for="inputEmail">Username</label> -->
-                                                <div  class=""><?php global $error; echo $error ?></div>
+                                                <div class=""><?php global $error; echo $error ?></div>
                                             </div>
                                             <div class="form-floating mb-3">
                                             <label for="inputPassword">Password</label>
