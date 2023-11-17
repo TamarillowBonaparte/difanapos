@@ -2,7 +2,7 @@
 $server   = "localhost";
 $username = "root";
 $password = "";
-$db       = "user";
+$db       = "toko";
 $koneksi = mysqli_connect($server, $username, $password, $db);
 //pastikan variablenya sama
 
