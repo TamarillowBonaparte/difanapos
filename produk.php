@@ -1,3 +1,21 @@
+<?php
+
+require ("koneksi.php");
+
+session_start();
+
+if(!isset($_SESSION['id_user'])){
+    
+    $_SESSION['msg'] = 'anda harus login untuk mengakses halaman ini';
+    header('Location: index.php');
+}
+
+    $sesID = $_SESSION ['id_user'];
+    $sesName = $_SESSION ['username'];
+    $sesLvl = $_SESSION [ 'level'];
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,19 +27,16 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title>DIFANA POS</title>
 
-    <!-- Custom fonts for this template -->
+    <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
-    <!-- Custom styles for this template -->
+    <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this page -->
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -34,21 +49,21 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="home.php">
+                <div class="sidebar-brand-icon">
+                <i class="fa-solid fa-cart-shopping     " ></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">DIFANA POS<sup></sup></div>
             </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="index.html">
+            <li class="nav-item active">
+                <a class="nav-link" href="home.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>Dashboard </span></a>
             </li>
 
             <!-- Divider -->
@@ -63,20 +78,21 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
+                    <i class="fa-solid fa-book"></i>
+                    <span>Produk</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
+                        <h6 class="collapse-header">Fitur Data Produk :</h6>
+                        <a class="collapse-item" href="produk.php">Data Produk</a>
+                        <a class="collapse-item" href="cards.html">Data Suplier</a>
+                        <a class="collapse-item" href="cards.html">Data Produk Return</a>
                     </div>
                 </div>
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
@@ -92,6 +108,24 @@
                         <a class="collapse-item" href="utilities-other.html">Other</a>
                     </div>
                 </div>
+            </li> -->
+
+            <li class="nav-item">
+                <a class="nav-link" href="kasir.php">
+                    <i class="fa-solid fa-cash-register"></i>
+                    <span>Kasir</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="tables.html">
+                    <i class="fa-solid fa-money-bill-transfer"></i>
+                    <span>Laporan</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="tables.html">
+                    <i class="fa-solid fa-person-chalkboard"></i>
+                    <span>Manajemen Karyawan</span></a>
             </li>
 
             <!-- Divider -->
@@ -112,8 +146,8 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
+                        <a class="collapse-item" href="login.php">Login</a>
+                        <a class="collapse-item" href="register.php">Register</a>
                         <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Other Pages:</h6>
@@ -122,8 +156,8 @@
                     </div>
                 </div>
             </li>
-
             <!-- Nav Item - Charts -->
+
             <li class="nav-item">
                 <a class="nav-link" href="charts.html">
                     <i class="fas fa-fw fa-chart-area"></i>
@@ -131,7 +165,7 @@
             </li>
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="tables.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Tables</span></a>
@@ -144,6 +178,8 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
+
+
 
         </ul>
         <!-- End of Sidebar -->
@@ -158,14 +194,12 @@
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
-                    <form class="form-inline">
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                    </form>
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
 
                     <!-- Topbar Search -->
-                    <form
+                    <!-- <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
@@ -176,7 +210,7 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </form> -->
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -256,81 +290,14 @@
                             </div>
                         </li>
 
-                        <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                            problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                            alt="...">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">I have the photos that you ordered last month, how
-                                            would you like them sent to you?</div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                                            the progress so far, keep up the good work!</div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                            told me that people say this to all dogs, even if they aren't good...</div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                            </div>
-                        </li>
 
-                        <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -348,7 +315,7 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="logout.php">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -360,17 +327,109 @@
                 </nav>
                 <!-- End of Topbar -->
 
+
+
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">DATA PRODUK</h1>
+                    </div>
+                </div>
 
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
+
+                <!-- Inputan Barang -->
+<div class="col mb-3">
+    <div class="card" style="width: 70rem;">
+        <div class="card-body py-4">
+            <form method="POST">
+                <div class="form-group row mb-0">
+                    <label class="col-sm-4 col-form-label col-form-label-sm"><b>Tanggal Inputtan Barang :</b></label>
+                    <div class="col-sm-8 mb-2">
+                        <input type="text" class="form-control form-control-sm" name="tgl_input" value="<?php echo date("j F Y"); ?>" readonly>
+                    </div>
+                    <label class="col-sm-4 col-form-label col-form-label-sm"><b>Nama Barang :</b></label>
+                    <div class="col-sm-8 mb-2">
+                        <input type="text" class="form-control form-control-sm" name="nama_barang">
+                    </div>
+                    <label class="col-sm-4 col-form-label col-form-label-sm"><b>Kode Barang :</b></label>
+                    <div class="col-sm-8 mb-2">
+                        <input type="text" class="form-control form-control-sm" name="kode_barang">
+                    </div>
+                    <label class="col-sm-4 col-form-label col-form-label-sm"><b>Merk :</b></label>
+                    <div class="col-sm-8 mb-2">
+                        <input type="text" class="form-control form-control-sm" name="merk">
+                    </div>
+                    <label class="col-sm-4 col-form-label col-form-label-sm"><b>Harga Beli :</b></label>
+                    <div class="col-sm-8 mb-2">
+                        <input type="text" class="form-control form-control-sm" name="harga_beli">
+                    </div>
+                    <label class="col-sm-4 col-form-label col-form-label-sm"><b>Harga Jual :</b></label>
+                    <div class="col-sm-8 mb-2">
+                        <input type="text" class="form-control form-control-sm" name="harga_jual">
+                    </div>
+                    <label class="col-sm-4 col-form-label col-form-label-sm"><b>Stok :</b></label>
+                    <div class="col-sm-8 mb-2">
+                        <input type="text" class="form-control form-control-sm" name="stok">
+                    </div>
+                    <label class="col-sm-4 col-form-label col-form-label-sm"><b>Expired Date :</b></label>
+                    <div class="col-sm-8 mb-2">
+                        <input type="date" class="form-control form-control-sm" name="expired_date" value="<?= date('Y-m-d'); ?>">
+                    </div>
+                    <div class="container d-flex justify-content-end align-items-center">
+                        <button type="submit" class="btn btn-primary">Tambah</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Ambil nilai dari form
+    $tgl_input = $_POST["tgl_input"];
+    $nama_barang = $_POST["nama_barang"];
+    $kode_barang = $_POST["kode_barang"];
+    $merk = $_POST["merk"];
+    $harga_beli = $_POST["harga_beli"];
+    $harga_jual = $_POST["harga_jual"];
+    $stok = $_POST["stok"];
+    $expiry_date = $_POST["expired_date"];
+
+    // Hubungkan ke database (gantilah sesuai dengan informasi database Anda)
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "toko";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if ($conn->connect_error) {
+        die("Koneksi gagal: " . $conn->connect_error);
+    }
+
+    // Query SQL untuk memasukkan data ke dalam database
+    $sql = "INSERT INTO produk (created_at, nama_produk, kode_produk, merk, harga_beli, harga_jual, stok, updated_at)
+            VALUES ('$tgl_input', '$nama_barang', '$kode_barang', '$merk', '$harga_beli', '$harga_jual', '$stok', '$expiry_date')";
+
+    if ($conn->query($sql) === TRUE) {
+        //echo "Data berhasil ditambahkan!";
+        echo "<script>alert('Menu berhasil ditambahkan');</script>";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+        
+    }
+
+    // Tutup koneksi ke database
+    $conn->close();
+}
+?>
+
+
+
+
+       <!-- DataTales Example -->
+       <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
                         </div>
@@ -379,77 +438,163 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                            <th>No</th>
+                            <th>nama_produk</th>
+                            <th>merk</th>
+                            <th>harga_beli</th>
+                            <th>harga_jual</th>
+                            <th>ditambah_tgl</th>
+                            <th>expired_date</th>
+                            <th>stok</th>
+                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
+
+                        <?php
+                        $no = 1;
+                        $tampil = mysqli_query($koneksi, "SELECT * FROM produk ORDER BY created_at DESC");
+                        while ($data = mysqli_fetch_array($tampil)):
+                        ?>
+
+                        <tr>
+                            <td><?= $no++ ?></td>
+                            <td><?= $data ['nama_produk'] ?></td>
+                            <td><?= $data ['merk'] ?></td>
+                            <td><?= $data['harga_beli'] ?></td>
+                            <td><?= $data['harga_jual'] ?></td>
+                            <td><?= $data['created_at'] ?></td>
+                            <td><?= $data['updated_at'] ?></td>
+                            <td><?= $data['stok'] ?></td>
+                            <td>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalUbah<?= $no ?>">Ubah</a>
+                            <a href="#" class="btn btn-danger"data-bs-toggle="modal" data-bs-target="#modalHapus<?= $no ?>">Hapus</a>
+                            </td>
+                        </tr>
+                
+<!-- Modal Ubah-->
+<div class="modal fade" id="modalUbah<?= $no ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">UBAH</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="aksi_crud.php">
+            <input type="hidden" name= "id_produk" value= "<?= $data['id_produk']?>">
+          <div class="mb-3">
+            <label class="form-label">Nama Produk</label>
+            <input type="text" class="form-control" name="tproduk" value="<?= $data['nama_produk'] ?>">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Merk</label>
+            <input type="text" class="form-control" name="tmerk" value="<?= $data['merk'] ?>">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Harga Beli</label>
+            <input type="text" class="form-control" name="tharga_beli" value="<?= $data['harga_beli'] ?>">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Harga Jual</label>
+            <input type="text" class="form-control" name="tharga_jual" value="<?= $data['harga_jual'] ?>">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">STOK</label>
+            <input type="text" class="form-control" name="tstok" value="<?= $data['stok'] ?>">
+          </div>
+          <button type="submit" class="btn btn-primary" name="b-ubah">Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Hapus-->
+<div class="modal fade" id="modalHapus<?= $no ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">HAPUS</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="aksi_crud.php">
+            <input type="hidden" name= "id_produk" value= "<?= $data['id_produk']?>">
+
+            <h5 class="text-center">Apakah anda ingin menghappus produk ini? <br>
+                            <span class="text-danger"><?= $data['nama_produk']?></span>
+
+            </h5>
+          
+          <button type="submit" class="btn btn-danger" name="b-hapus">Hapus</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>                         
+<?php endwhile; ?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- /.container-fluid -->
 
-            </div>
-            <!-- End of Main Content -->
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+
+        <!--pagination-->
+                <!-- End of Page Wrapper -->
+
+                <!-- Scroll to Top Button-->
+                <a class="scroll-to-top rounded" href="#page-top">
+                    <i class="fas fa-angle-up"></i>
+                </a>
+                <!-- Logout Modal-->
+                <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="tr+ue">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">Select "Logout" below if you are ready to end
+                                your current session.</div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                <a class="btn btn-primary" href="proses_login.php">Logout</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </footer>
-            <!-- End of Footer -->
 
-        </div>
-        <!-- End of Content Wrapper -->
+                <!-- Bootstrap core JavaScript-->
+                <script src="vendor/jquery/jquery.min.js"></script>
+                <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+                <script src="js/datatables-simple-demo.js"></script>
 
-    </div>
-    <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+                <!-- Core plugin JavaScript-->
+                <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
+                <!-- Custom scripts for all pages-->
+                <script src="js/sb-admin-2.min.js"></script>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
+                <!-- Page level plugins -->
+                <script src="vendor/chart.js/Chart.min.js"></script>
+
+                <!-- Page level custom scripts -->
+                <script src="js/demo/chart-area-demo.js"></script>
+                <script src="js/demo/chart-pie-demo.js"></script>
+                <script src="js/demo/datatables-simple-demo.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+    </script>
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
@@ -466,5 +611,4 @@
     <script src="js/demo/datatables-demo.js"></script>
 
 </body>
-
 </html>
