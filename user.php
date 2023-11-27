@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $pass = "";
-$db = "tokoproy";
+$db = "toko";
 
 $koneksi = mysqli_connect($host, $user, $pass, $db);
 if (!$koneksi) {
@@ -17,6 +17,7 @@ $pass = "";
 $level = "";
 $error = "";
 $sukses = "";
+$aksi = "";
 
 if (isset($_GET['op'])) {
      $op = $_GET['op'];
@@ -54,7 +55,7 @@ if ($op == 'edit') {
 if (isset($_POST["simpan"])) {
      $id = $_POST["id"];
      $nama = $_POST["nama"];
-     $username = $_POST["pass"];
+     $username = $_POST["Uname"];
      $no = $_POST["no"];
      $email = $_POST["email"];
      $pass = $_POST["pass"];
@@ -71,7 +72,7 @@ if (isset($_POST["simpan"])) {
                     $error = "data tidak berhasil";
                }
           } else {
-               $sqli = "INSERT INTO `user`(`id_user`, `nama_user`, `username`, `no.tlp`, `email`, `password`, `level`) VALUES ('$id','$nama','$username','$no','$email','$pas','$level')";
+               $sqli = "INSERT INTO `user`(`id_user`, `nama_user`, `username`, `no.tlp`, `email`, `password`, `level`) VALUES ('$id','$nama','$username','$no','$email','$pass','$level')";
                $sq1 = mysqli_query($koneksi, $sqli);
                if ($sq1) {
                     $sukses = "berhasil";
@@ -171,7 +172,7 @@ if (isset($_POST["simpan"])) {
                          <div class="mb-3 row">
                               <label for="level" class="col-sm-2 col-form-label">level</label>
                               <div class="col-sm-10">
-                                   <input type="text" class="form-control" id="level" name="level" value="<?php echo $no ?>">
+                                   <input type="text" class="form-control" id="level" name="level" value="<?php echo $level ?>">
                               </div>
                          </div>
                          <div class="col-12">
@@ -219,7 +220,9 @@ if (isset($_POST["simpan"])) {
                                         <td scope="row"><?php echo $username ?></td>
                                         <td scope="row"><?php echo $no ?></td>
                                         <td scope="row"><?php echo $email ?></td>
+                                        <td scope="row"><?php echo $pass ?></td>
                                         <td scope="row"><?php echo $level ?></td>
+                                        <td scope="row"><?php echo $aksi ?></td>
                                         <td scope="row">
                                              <a href="user.php?op=edit&id=<?php echo $id ?>"><button type="button" class="btn btn-danger">edit</button></a>
                                              <a href="user.php?op=delete&id=<?php echo $id ?>" onclick="return confirm('Yakin mau hapus data?')"><button type="button" class="btn btn-warning">delete</button></a>
