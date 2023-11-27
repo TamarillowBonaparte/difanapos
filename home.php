@@ -122,7 +122,7 @@ if(!isset($_SESSION['id_user'])){
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="user.php">
                 <i class="fa-solid fa-person-chalkboard"></i>
                     <span>Manajemen Karyawan</span></a>
             </li>

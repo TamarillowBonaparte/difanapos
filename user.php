@@ -1,11 +1,12 @@
 <?php
+require ("koneksi.php");
 $host = "localhost";
 $user = "root";
 $pass = "";
 $db = "toko";
 
 $koneksi = mysqli_connect($host, $user, $pass, $db);
-if (!$koneksi) {
+if (!$koneksi) {    
      die("tidak dapat terkoneksi");
 }
 $id = "";
