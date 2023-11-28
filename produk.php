@@ -27,7 +27,8 @@ if(!isset($_SESSION['id_user'])){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>DIFANA POS</title>
+    <title>SIDINAF</title>
+    <link rel="icon" href="logo atas.png" type="image/x-icon">
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -37,6 +38,8 @@ if(!isset($_SESSION['id_user'])){
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbs5aH1U6HRc9u6x4n7AwaCJ8GTWp3WMw73uvbLxjJ6B" crossorigin="anonymous">
+
 
 </head>
 
@@ -50,10 +53,11 @@ if(!isset($_SESSION['id_user'])){
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="home.php">
-                <div class="sidebar-brand-icon">
-                <i class="fa-solid fa-cart-shopping     " ></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">DIFANA POS<sup></sup></div>
+            <div class="sidebar-brand-icon ">
+                <!-- Menambahkan gaya CSS untuk mengontrol ukuran gambar -->
+                <img src="logo atas.png" alt="Logo" style="max-width: 65px; max-height: 65px;">
+            </div>
+            <div class="sidebar-brand-text mx-3">SIDINAF</div>
             </a>
 
             <!-- Divider -->
@@ -85,8 +89,9 @@ if(!isset($_SESSION['id_user'])){
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Fitur Data Produk :</h6>
                         <a class="collapse-item" href="produk.php">Data Produk</a>
-                        <a class="collapse-item" href="cards.html">Data Suplier</a>
-                        <a class="collapse-item" href="cards.html">Data Produk Return</a>
+                        <a class="collapse-item" href="data_pembelian.php">Data Pembelian</a>
+                        <a class="collapse-item" href="kategori.php">Kategori</a>
+                        <!-- <a class="collapse-item" href="cards.html">Data Produk Return</a> -->
                     </div>
                 </div>
             </li>
@@ -286,19 +291,25 @@ if(!isset($_SESSION['id_user'])){
                                         Spending Alert: We've noticed unusually high spending for your account.
                                     </div>
                                 </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#"></a>
                             </div>
                         </li>
-
-
-
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
-                            </a>
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                <?php
+                        
+                                if (isset($_SESSION['username'])) {
+                                    echo $_SESSION['username'];
+                                } else {
+                                    echo 'DefaultUsername'; // Provide a default if the session variable is not set
+                                }
+                                ?>
+                            </span>
+                            <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                        </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
@@ -329,6 +340,7 @@ if(!isset($_SESSION['id_user'])){
 
 
 
+
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
@@ -337,8 +349,7 @@ if(!isset($_SESSION['id_user'])){
                     </div>
                 </div>
 
-
-                <!-- Inputan Barang -->
+<!-- Inputan Barang -->
 <div class="col mb-3">
     <div class="card" style="width: 70rem;">
         <div class="card-body py-4">
@@ -348,6 +359,24 @@ if(!isset($_SESSION['id_user'])){
                     <div class="col-sm-8 mb-2">
                         <input type="text" class="form-control form-control-sm" name="tgl_input" value="<?php echo date("j F Y"); ?>" readonly>
                     </div>
+                    <label class="col-sm-4 col-form-label col-form-label-sm"><b>Supplier :</b></label>
+                    <div class="col-sm-8 mb-2">
+                    <select class="form-select" name="t-supplier">
+                        <option selected disabled>Pilih Supplier</option>
+                        <?php
+                        // Kode untuk mengambil data supplier dari database
+                        $koneksi = mysqli_connect($server, $username, $password, $db);
+                        // Query untuk mengambil data supplier
+                        $query = "SELECT id_supplier, nama_supplier FROM supplier";
+                        $result = mysqli_query($koneksi, $query);
+
+                        // Loop untuk membangun opsi dari hasil query
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo "<option value='" . $row['id_supplier'] . "'>" . $row['nama_supplier'] . "</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
                     <label class="col-sm-4 col-form-label col-form-label-sm"><b>Nama Barang :</b></label>
                     <div class="col-sm-8 mb-2">
                         <input type="text" class="form-control form-control-sm" name="nama_barang">
@@ -376,6 +405,24 @@ if(!isset($_SESSION['id_user'])){
                     <div class="col-sm-8 mb-2">
                         <input type="date" class="form-control form-control-sm" name="expired_date" value="<?= date('Y-m-d'); ?>">
                     </div>
+                    <label class="col-sm-4 col-form-label col-form-label-sm"><b>Kategori :</b></label>
+                    <div class="col-sm-8 mb-2">
+                    <select class="form-select" name="t-kategori">
+                        <option selected disabled>Pilih Kategori</option>
+                        <?php
+                        // Kode untuk mengambil data supplier dari database
+                        $koneksi = mysqli_connect($server, $username, $password, $db);
+                        // Query untuk mengambil data supplier
+                        $query = "SELECT id_kategori, nama_kategori FROM kategori";
+                        $result = mysqli_query($koneksi, $query);
+
+                        // Loop untuk membangun opsi dari hasil query
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo "<option value='" . $row['id_kategori'] . "'>" . $row['nama_kategori'] . "</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
                     <div class="container d-flex justify-content-end align-items-center">
                         <button type="submit" class="btn btn-primary">Tambah</button>
                     </div>
@@ -384,6 +431,8 @@ if(!isset($_SESSION['id_user'])){
         </div>
     </div>
 </div>
+<!--End Inputan Barang -->
+
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Ambil nilai dari form
@@ -593,6 +642,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <script src="js/demo/datatables-simple-demo.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
+    
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

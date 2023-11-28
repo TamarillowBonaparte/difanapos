@@ -26,7 +26,8 @@ if(!isset($_SESSION['id_user'])){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>SIDINAF</title>
+    <link rel="icon" href="logo atas.png" type="image/x-icon">
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -49,10 +50,11 @@ if(!isset($_SESSION['id_user'])){
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="home.php">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+            <div class="sidebar-brand-icon ">
+            <!-- Menambahkan gaya CSS untuk mengontrol ukuran gambar -->
+            <img src="logo atas.png" alt="Logo" style="max-width: 65px; max-height: 65px;">
+            </div>
+            <div class="sidebar-brand-text mx-3">SIDINAF</div>
             </a>
 
             <!-- Divider -->
@@ -84,6 +86,7 @@ if(!isset($_SESSION['id_user'])){
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Fitur Data Produk :</h6>
                         <a class="collapse-item" href="produk.php">Data Produk</a>
+                        <a class="collapse-item" href="data_pembelian.php">Data Pembelian</a>
                         <a class="collapse-item" href="kategori.php">Kategori</a>
                         <!-- <a class="collapse-item" href="cards.html">Data Produk Return</a> -->
                     </div>
@@ -122,7 +125,7 @@ if(!isset($_SESSION['id_user'])){
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="user.php">
+                <a class="nav-link" href="tables.html">
                 <i class="fa-solid fa-person-chalkboard"></i>
                     <span>Manajemen Karyawan</span></a>
             </li>
@@ -281,27 +284,24 @@ if(!isset($_SESSION['id_user'])){
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
-                            </a>
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                <?php
+                        
+                                if (isset($_SESSION['username'])) {
+                                    echo $_SESSION['username'];
+                                } else {
+                                    echo 'DefaultUsername'; // Provide a default if the session variable is not set
+                                }
+                                ?>
+                            </span>
+                            <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                        </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
-                                </a>
+                                
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="logout.php">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

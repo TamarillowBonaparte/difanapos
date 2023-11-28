@@ -63,14 +63,9 @@ if (isset($_POST['submit'])) {
     <!-- Style -->
     <link rel="stylesheet" href="css/style.css">
 
-    <title>Login #2</title>
-
-
-
+    <title>SIDINAF</title>
 
 </head>
-
-
 <body>
 
     <div class="d-lg-flex half">
@@ -100,17 +95,11 @@ if (isset($_POST['submit'])) {
                                 <!-- <label for="inputPassword">Password</label> -->
                             </div>
                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                <a class="small" href="password.html">Lupa Password?</a>
                                 <button class="btn btn-block btn-primary" type="submit" name="submit">Login</button>
                             </div>
                         </form>
                         <hr>
-                        <div class="text-center">
-                            <a class="small" href="forgot-password.html">Forgot Password?</a>
-                        </div>
-                        <div class="text-center">
-                            <a class="small" href="register.html">Create an Account!</a>
-                        </div>
+                       
                     </div>
                 </div>
             </div>
