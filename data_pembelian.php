@@ -345,10 +345,9 @@ if(!isset($_SESSION['id_user'])){
                         <input type="text" class="form-control form-control-sm" name="merk">
                     </div>
                     <label class="col-sm-4 col-form-label col-form-label-sm"><b>Harga Beli :</b></label>
-                    <div class="col-sm-8 mb-2">
-                        <input type="text" class="form-control form-control-sm" name="harga_beli">
-                    </div>
-                  
+                <div class="col-sm-8 mb-2">
+                    <input type="text" class="form-control form-control-sm" name="harga_beli" id="harga_beli" oninput="calculateTotal()">
+                </div>
                     <label class="col-sm-4 col-form-label col-form-label-sm"><b>Kategori :</b></label>
                     <div class="col-sm-8 mb-2">
                     <select class="form-select" name="t_kategori">
@@ -372,13 +371,14 @@ if(!isset($_SESSION['id_user'])){
                         <input type="text" class="form-control form-control-sm" name="harga_jual">
                     </div> -->
                     <label class="col-sm-4 col-form-label col-form-label-sm"><b>Stok :</b></label>
-                    <div class="col-sm-8 mb-2">
-                        <input type="text" class="form-control form-control-sm" name="stok">
-                    </div>
-                    <label class="col-sm-4 col-form-label col-form-label-sm"><b>Total Pembayaran :</b></label>
-                    <div class="col-sm-8 mb-2">
-                        <input type="text" class="form-control form-control-sm" name="total_pembayaran">
-                    </div>
+                <div class="col-sm-8 mb-2">
+                    <input type="text" class="form-control form-control-sm" name="stok" id="stok" oninput="calculateTotal()">
+                </div>
+
+                <label class="col-sm-4 col-form-label col-form-label-sm"><b>Total Pembayaran :</b></label>
+                <div class="col-sm-8 mb-2">
+                    <input type="text" class="form-control form-control-sm" name="total_pembayaran" id="total_pembayaran" readonly>
+                </div>
                     <label class="col-sm-4 col-form-label col-form-label-sm"><b>Suplier :</b></label>
                     <div class="col-sm-8 mb-2">
                     <select class="form-select" name="t_supplier">
@@ -647,6 +647,21 @@ if (mysqli_query($conn, $sql_pembelian)) {
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
+
+    <script>
+    function calculateTotal() {
+        // Get the values of Harga Beli and Stok
+        var hargaBeli = document.getElementById("harga_beli").value;
+        var stok = document.getElementById("stok").value;
+
+        // Calculate the total payment
+        var totalPayment = hargaBeli * stok;
+
+        // Display the total payment in the "Total Pembayaran" input field
+        document.getElementById("total_pembayaran").value = totalPayment;
+    }
+</script>
+
 
 </body>
 </html>
