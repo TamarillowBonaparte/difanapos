@@ -443,6 +443,7 @@ $pembelian_id = ($max_id !== null) ? $max_id + 1 : 1;
 
 // Menyimpan pembelian ke database
 $sql_pembelian = "INSERT INTO pembelian(id_pembelian, tanggal, total_pembayaran) VALUES ('$pembelian_id', '$tgl_input','$total_pembayaran')";
+
 if (mysqli_query($conn, $sql_pembelian)) {
     
     // Mendapatkan ID terbaru dari detail pembelian
@@ -452,8 +453,8 @@ if (mysqli_query($conn, $sql_pembelian)) {
     $detailpembelian_id = ($max_detail_id !== null) ? $max_detail_id + 1 : 1;
 
     // Menyimpan detail pembelian ke database
-    $sql_detail_pembelian = "INSERT INTO detail_pembelian(id_detailpembelian, id_pembelian, jumlah,merk ,tanggal, nama_produk, harga, id_kategori, id_suplier) 
-    VALUES ('$detailpembelian_id','$pembelian_id','$stok','$merk' ,'$tgl_input','$nama_barang','$harga_beli','$id_kategori','$id_supplier')";
+    $sql_detail_pembelian = "INSERT INTO detail_pembelian(id_detailpembelian, id_pembelian, jumlah,merk , nama_produk, harga, id_kategori, id_suplier) 
+    VALUES ('$detailpembelian_id','$pembelian_id','$stok','$merk' ,'$nama_barang','$harga_beli','$id_kategori','$id_supplier')";
 
     if (mysqli_query($conn, $sql_detail_pembelian)) {
         echo '<script>alert("Data berhasil disimpan");</script>';
