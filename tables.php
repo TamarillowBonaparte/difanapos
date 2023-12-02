@@ -34,9 +34,8 @@ $sesLvl = $_SESSION['level'];
 
     <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbs5aH1U6HRc9u6x4n7AwaCJ8GTWp3WMw73uvbLxjJ6B" crossorigin="anonymous">
 
-    <!-- Custom styles for this page -->
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -61,7 +60,7 @@ $sesLvl = $_SESSION['level'];
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="home.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -109,13 +108,13 @@ $sesLvl = $_SESSION['level'];
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
+            <!-- Heading
             <div class="sidebar-heading">
                 Addons
-            </div>
+            </div> -->
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Pages</span>
@@ -132,7 +131,7 @@ $sesLvl = $_SESSION['level'];
                         <a class="collapse-item" href="blank.html">Blank Page</a>
                     </div>
                 </div>
-            </li>
+            </li> -->
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
@@ -143,9 +142,9 @@ $sesLvl = $_SESSION['level'];
 
             <!-- Nav Item - Tables -->
             <li class="nav-item active">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="tables.php">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                    <span>Manajemen Karyawan</span></a>
             </li>
 
             <!-- Divider -->
@@ -414,7 +413,7 @@ $sesLvl = $_SESSION['level'];
                     // Ambil nilai dari form
                     $id_user = $_POST["id_user"];
                     $nama = $_POST["nama"];
-                    $username = $_POST["username"];
+                    $username2 = $_POST["username"];
                     $nmr = $_POST["nomer"];
                     $email = $_POST["email"];
                     $pw = $_POST["password"];
@@ -433,7 +432,7 @@ $sesLvl = $_SESSION['level'];
                     }
 
                     // Query SQL untuk memasukkan data ke dalam database
-                    $sql = "INSERT INTO `user`(`id_user`, `nama_user`, `username`, `no_tlp`, `email`, `pass`, `level`) VALUES ('$id_user','$nama','$username','$nmr','$email','$pw','$level')";
+                    $sql = "INSERT INTO `user`(`id_user`, `nama_user`, `username`, `no_tlp`, `email`, `pass`, `level`) VALUES ('$id_user','$nama','$username2','$nmr','$email','$pw','$level')";
                     if ($conn->query($sql) === TRUE) {
                         //echo "Data berhasil ditambahkan!";
                         echo "<script>alert('Menu berhasil ditambahkan');</script>";
@@ -488,75 +487,80 @@ $sesLvl = $_SESSION['level'];
                                             <td><?= $data['pass'] ?></td>
                                             <td><?= $data['level'] ?></td>
                                             <td>
-                                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalUbah<?= $no ?>">Ubah</a>
-                                                <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalHapus<?= $no ?>">Hapus</a>
+                                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tombolUbah<?= $no ?>">ubah </a>
+                                                <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#tombolHapus<?= $no ?>">Hapus</a>
                                             </td>
                                         </tr>
+                                        <div class="modal fade" id="tombolUbah<?= $no ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="tombolUbah">Form User</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+
+                                                    <input type="hidden" class="form-control" id="iduser" value="<?= $data['id_user'] ?>">
+                                                    <div class="modal-body">
+                                                        <form method="POST" action="aksi_user.php">
+                                                            <input type="hidden" class="form-control" id="iduser" value="<?= $data['id_user'] ?>">
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Nama</label>
+                                                                <input type="text" class="form-control" id="tnama" value="<?= $data['nama_user'] ?>">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Username</label>
+                                                                <input type="text" class="form-control" id="tuname" value="<?= $data['username'] ?>">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label class="form-label">No. Telpon</label>
+                                                                <input type="text" class="form-control" id="tnomor" value="<?= $data['no_tlp'] ?>">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Email</label>
+                                                                <input type="text" class="form-control" id="temail" value="<?= $data['email'] ?>">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Password</label>
+                                                                <input type="text" class="form-control" id="tpass" value="<?= $data['pass'] ?>">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label class="form-label">level</label>
+                                                                <input type="text" class="form-control" id="tlevel" value="<?= $data['level'] ?>">
+                                                            </div>
+
+                                                            ...
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                                        <button type="submit" class="btn btn-primary" name="b_update">Update</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" id="tombolHapus<?= $no ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="staticBackdropLabel">HAPUS</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form method="POST" action="aksi_user.php">
+                                                            <input type="hidden" name="id_user" value="<?= $data['id_user'] ?>">
+
+                                                            <h5 class="text-center">Apakah anda ingin menghapus user di bawah? <br>
+                                                                <span class="text-danger"><?= $data['nama_user'] ?></span>
+
+                                                            </h5>
+
+                                                            <button type="submit" class="btn btn-danger" name="bhapus">Hapus</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     <?php endwhile; ?>
-
-                                    <!-- Modal Ubah-->
-                                    <div class="modal fade" id="modalUbah<?= $no ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="staticBackdropLabel">UBAH</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form method="POST" action="aksi_crud_user.php">
-                                                        <input type="hidden" name="id_user" value="<?= $data['id_user'] ?>">
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Nama</label>
-                                                            <input type="text" class="form-control" name="nama" value="<?= $data['nama_user'] ?>">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Username</label>
-                                                            <input type="text" class="form-control" name="Uname" value="<?= $data['username'] ?>">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Nomer</label>
-                                                            <input type="text" class="form-control" name="nomer" value="<?= $data['no_tlp'] ?>">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Email</label>
-                                                            <input type="text" class="form-control" name="email" value="<?= $data['email'] ?>">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Password</label>
-                                                            <input type="text" class="form-control" name="pass" value="<?= $data['pass'] ?>">
-                                                        </div>
-                                                        <button type="submit" class="btn btn-primary" name="btn_ubah">Update</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <!-- Modal Hapus-->
-                                    <div class="modal fade" id="modalHapus<?= $no ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="staticBackdropLabel">HAPUS</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form method="POST" action="aksi_crud_user.php">
-                                                        <input type="hidden" name="id_user" value="<?= $data['id_user'] ?>">
-
-                                                        <h5 class="text-center">Apakah anda ingin menghappus produk ini? <br>
-                                                            <span class="text-danger"><?= $data['nama'] ?></span>
-
-                                                        </h5>
-
-                                                        <button type="submit" class="btn btn-danger" name="btn_hapus">Hapus</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                 </tbody>
                             </table>
                         </div>
@@ -623,6 +627,7 @@ $sesLvl = $_SESSION['level'];
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 </body>
 
