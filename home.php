@@ -119,7 +119,7 @@ if(!isset($_SESSION['id_user'])){
             </li>
             
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="laporan.php">
                 <i class="fa-solid fa-money-bill-transfer"></i>
                     <span>Laporan</span></a>
             </li>

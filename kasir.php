@@ -1,5 +1,4 @@
 <?php
-
 require ("koneksi.php");
 session_start();
 if(!isset($_SESSION['id_user'])){
@@ -92,7 +91,7 @@ if(!isset($_SESSION['id_user'])){
             </li>
             
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="laporan.php">
                 <i class="fa-solid fa-money-bill-transfer"></i>
                     <span>Laporan</span></a>
             </li>
@@ -636,6 +635,24 @@ if(!isset($_SESSION['id_user'])){
                     success: function (response) {
                         // Tampilkan respons dari server jika diperlukan
                         console.log(response);
+                    }
+                });
+            }
+
+            function kirimKePrintPHP(ids, jumlahBarang) {
+                // Kirim data ke server menggunakan jQuery untuk print.php
+                $.ajax({
+                    type: "POST",
+                    url: "print.php",
+                    data: {
+                        ids: ids,
+                        jumlahBarang: jumlahBarang
+                    },
+                    success: function (response) {
+                        // Tampilkan respons dari server jika diperlukan
+                        console.log(response);
+
+                        // Lakukan hal-hal lain setelah pengiriman ke print.php berhasil
                     }
                 });
             }

@@ -24,7 +24,7 @@ if (!$resultcari) {
 echo "<table style='border-collapse: collapse; width: 100%;'>";
 while ($row = mysqli_fetch_assoc($resultcari)) {
     echo "<tr style='border-bottom: 1px solid #000;'>";
-    echo "<td style='padding: 5px;'><strong>Kode Barang</strong><br> " . $row['id_produk'] . "</td>";
+    echo "<td style='padding: 5px;'><strong>Kode Barang9</strong><br> " . $row['id_produk'] . "</td>";
     echo "<td style='padding: 5px;'><strong>Harga_Jual</strong><br> " . $row['harga_jual'] . "</td>";
     echo "<td style='padding: 5px;'><strong>Nama Barang</strong><br>" . $row['nama_produk'] . "</td>";
     echo "<td style='padding: 5 px;'><strong>merk</strong><br>" . $row['merk'] . "</td>";

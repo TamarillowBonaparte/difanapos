@@ -13,6 +13,22 @@ if(!isset($_SESSION['id_user'])){
     $sesID = $_SESSION ['id_user'];
     $sesName = $_SESSION ['username'];
     $sesLvl = $_SESSION [ 'level'];
+
+
+$bulan_tes =array(
+    '01'=>"Januari",
+    '02'=>"Februari",
+    '03'=>"Maret",
+    '04'=>"April",
+    '05'=>"Mei",
+    '06'=>"Juni",
+    '07'=>"Juli",
+    '08'=>"Agustus",
+    '09'=>"September",
+    '10'=>"Oktober",
+    '11'=>"November",
+    '12'=>"Desember"
+);
     
 ?>
 
@@ -332,9 +348,7 @@ if(!isset($_SESSION['id_user'])){
                                 </a>
                             </div>
                         </li>
-
                     </ul>
-
                 </nav>
                 <!-- End of Topbar -->
 
@@ -345,140 +359,127 @@ if(!isset($_SESSION['id_user'])){
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">DATA PRODUK</h1>
+                        <h1 class="h3 mb-0 text-gray-800">LAPORAN</h1>
                     </div>
                 </div>
 
-<!-- Inputan Barang -->
-<div class="col mb-3">
-    <div class="card" style="width: 70rem;">
-        <div class="card-body py-4">
-            <form method="POST">
-                <div class="form-group row mb-0">
-                    <label class="col-sm-4 col-form-label col-form-label-sm"><b>Tanggal Inputtan Barang :</b></label>
-                    <div class="col-sm-8 mb-2">
-                        <input type="text" class="form-control form-control-sm" name="tgl_input" value="<?php echo date("Y-m-d"); ?>" readonly>
-                    </div>
-                    <label class="col-sm-4 col-form-label col-form-label-sm"><b>Supplier :</b></label>
-                    <div class="col-sm-8 mb-2">
-                    <select class="form-select" name="t-supplier">
-                        <option selected disabled>Pilih Supplier</option>
-                        <?php
-                        // Kode untuk mengambil data supplier dari database
-                        $koneksi = mysqli_connect($server, $username, $password, $db);
-                        // Query untuk mengambil data supplier
-                        $query = "SELECT id_supplier, nama_supplier FROM supplier";
-                        $result = mysqli_query($koneksi, $query);
 
-                        // Loop untuk membangun opsi dari hasil query
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            echo "<option value='" . $row['id_supplier'] . "'>" . $row['nama_supplier'] . "</option>";
-                        }
-                        ?>
-                    </select>
+<!-- Tombol Cari -->
+<div class="col mb-3 px-4">
+                    <div class="card">
+                        <div class="card-body py-4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    
+                                        <div class="card-header">
+                                            <h5 class="card-title mt-2">Cari Laporan Per Bulan</h5>
+                                        </div>
+                                       
+                                            <form method="post" action="data-transaksi.php?page=laporan&cari=ok">
+                                                <table class="table table-striped">
+                                                    <tr>
+                                                        <th>
+                                                            Pilih Bulan
+                                                        </th>
+                                                        <th>
+                                                            Pilih Tahun
+                                                        </th>
+                                                        <th>
+                                                            Aksi
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <select name="bln" class="form-control">
+                                                                <option selected="selected">Bulan</option>
+                                                                <?php
+                                                                $bulan=array("Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember");
+                                                                $jlh_bln=count($bulan);
+                                                                $bln1 = array('01','02','03','04','05','06','07','08','09','10','11','12');
+                                                                $no=1;
+                                                                for($c=0; $c<$jlh_bln; $c+=1){
+                                                                    echo"<option value='$bln1[$c]'> $bulan[$c] </option>";
+                                                                $no++;}
+                                                                ?>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                        <?php
+
+                                                        $now=date('Y');
+                                                        echo "<select name='thn' class='form-control'>";
+                                                        echo '
+                                                        <option selected="selected">Tahun</option>';
+                                                        for ($a=2017;$a<=$now;$a++)
+                                                        {
+                                                            echo "<option value='$a'>$a</option>";
+                                                        }
+                                                        echo "</select>";
+
+                                                        ?>
+                                                        </td>
+                                                        <td>
+                                                            <input type="hidden" name="periode" value="ya">
+                                                            <button class="btn btn-primary">
+                                                                <i class="fa fa-search"></i> Cari
+                                                            </button>
+                                                            
+                                                            <?php if(!empty($_GET['cari'])){?>
+                                                            <a href="excel.php?cari=yes&bln=<?=$_POST['bln'];?>&thn=<?=$_POST['thn'];?>"
+                                                                class="btn btn-info"><i class="fa fa-download"></i>
+                                                                Excel</a>
+                                                            <?php }else{?>
+                                                            <a href="excel.php" class="btn btn-info"><i class="fa fa-download"></i>
+                                                                Excel</a>
+                                                            <?php }?>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </form>
+                                            <form method="post" action="data-transaksi.php?page=laporan&hari=cek">
+                                                <table class="table table-striped">
+                                                    <tr>
+                                                        <th>
+                                                            Pilih Hari
+                                                        </th>
+                                                        <th>
+                                                            Aksi
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="date" value="<?= date('Y-m-d');?>" class="form-control" name="hari">
+                                                        </td>
+                                                        <td>
+                                                            <input type="hidden" name="periode" value="ya">
+                                                            <button class="btn btn-primary">
+                                                                <i class="fa fa-search"></i> Cari
+                                                            </button>
+
+                                                            <?php if(!empty($_GET['hari'])){?>
+                                                            <a href="excel.php?hari=cek&tgl=<?= $_POST['hari'];?>" class="btn btn-info"><i
+                                                                    class="fa fa-download"></i>
+                                                                Excel</a>
+                                                            <?php }else{?>
+                                                            <a href="excel.php" class="btn btn-info"><i class="fa fa-download"></i>
+                                                                Excel</a>
+                                                            <?php }?>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <a href="data-transaksi.php?page=laporan" class="btn btn-success">
+                                                    <i class="fa fa-refresh"></i> Refresh
+                                                </a>
+                                            </form>
+                                <!--End Pencarian -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                    <label class="col-sm-4 col-form-label col-form-label-sm"><b>Nama Barang :</b></label>
-                    <div class="col-sm-8 mb-2">
-                        <input type="text" class="form-control form-control-sm" name="nama_barang">
-                    </div>
-                    <label class="col-sm-4 col-form-label col-form-label-sm"><b>Kode Barang :</b></label>
-                    <div class="col-sm-8 mb-2">
-                        <input type="text" class="form-control form-control-sm" name="kode_barang">
-                    </div>
-                    <label class="col-sm-4 col-form-label col-form-label-sm"><b>Merk :</b></label>
-                    <div class="col-sm-8 mb-2">
-                        <input type="text" class="form-control form-control-sm" name="merk">
-                    </div>
-                    <label class="col-sm-4 col-form-label col-form-label-sm"><b>Harga Beli :</b></label>
-                    <div class="col-sm-8 mb-2">
-                        <input type="text" class="form-control form-control-sm" name="harga_beli">
-                    </div>
-                    <label class="col-sm-4 col-form-label col-form-label-sm"><b>Harga Jual :</b></label>
-                    <div class="col-sm-8 mb-2">
-                        <input type="text" class="form-control form-control-sm" name="harga_jual">
-                    </div>
-                    <label class="col-sm-4 col-form-label col-form-label-sm"><b>Stok :</b></label>
-                    <div class="col-sm-8 mb-2">
-                        <input type="text" class="form-control form-control-sm" name="stok">
-                    </div>
-                    <label class="col-sm-4 col-form-label col-form-label-sm"><b>Expired Date :</b></label>
-                    <div class="col-sm-8 mb-2">
-                        <input type="date" class="form-control form-control-sm" name="expired_date" value="<?= date('Y-m-d'); ?>">
-                    </div>
-                    <label class="col-sm-4 col-form-label col-form-label-sm"><b>Kategori :</b></label>
-                    <div class="col-sm-8 mb-2">
-                    <select class="form-select" name="t-kategori">
-                        <option selected disabled>Pilih Kategori</option>
-                        <?php
-                        // Kode untuk mengambil data supplier dari database
-                        $koneksi = mysqli_connect($server, $username, $password, $db);
-                        // Query untuk mengambil data supplier
-                        $query = "SELECT id_kategori, nama_kategori FROM kategori";
-                        $result = mysqli_query($koneksi, $query);
-
-                        // Loop untuk membangun opsi dari hasil query
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            echo "<option value='" . $row['id_kategori'] . "'>" . $row['nama_kategori'] . "</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
-                    <div class="container d-flex justify-content-end align-items-center">
-                        <button type="submit" class="btn btn-primary">Tambah</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!--End Inputan Barang -->
-
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Ambil nilai dari form
-    $tgl_input = $_POST["tgl_input"];
-    $nama_barang = $_POST["nama_barang"];
-    $kode_barang = $_POST["kode_barang"];
-    $merk = $_POST["merk"];
-    $harga_beli = $_POST["harga_beli"];
-    $harga_jual = $_POST["harga_jual"];
-    $stok = $_POST["stok"];
-    $expiry_date = $_POST["expired_date"];
-
-    // Hubungkan ke database (gantilah sesuai dengan informasi database Anda)
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "toko";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    if ($conn->connect_error) {
-        die("Koneksi gagal: " . $conn->connect_error);
-    }
-
-    // Query SQL untuk memasukkan data ke dalam database
-    $sql = "INSERT INTO produk (created_at, nama_produk, kode_produk, merk, harga_beli, harga_jual, stok, updated_at)
-            VALUES ('$tgl_input', '$nama_barang', '$kode_barang', '$merk', '$harga_beli', '$harga_jual', '$stok', '$expiry_date')";
-
-    if ($conn->query($sql) === TRUE) {
-        //echo "Data berhasil ditambahkan!";
-        echo "<script>alert('Menu berhasil ditambahkan');</script>";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-        
-    }
-
-    // Tutup koneksi ke database
-    $conn->close();
-}
-?>
-
-
-
-
-       <!-- DataTales Example -->
-       <div class="card shadow mb-4">
+                <!--Tabel --> 
+                <div class="col mb-3 px-4">
+                    <div class="card mb-3">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
                         </div>
@@ -487,110 +488,65 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                            <th>No</th>
-                            <th>nama_produk</th>
-                            <th>merk</th>
-                            <th>harga_beli</th>
-                            <th>harga_jual</th>
-                            <th>ditambah_tgl</th>
-                            <th>expired_date</th>
-                            <th>stok</th>
-                            <th>Action</th>
+                                            <td>ID Penjualan</td>
+                                            <td>Tanggal</td>
+                                            <td>Total</td>
+                                            <td>Kasir</td>
+                                            <td>Nota</td>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <?php
 
-                        <?php
-                        $no = 1;
-                        $tampil = mysqli_query($koneksi, "SELECT * FROM produk ORDER BY created_at DESC");
-                        while ($data = mysqli_fetch_array($tampil)):
-                        ?>
+                                        if (isset($_GET['cari']) && $_GET['cari'] == 'ok') {
+                                            $bulan = $_POST['bln'];
+                                            $tahun = $_POST['thn'];
 
-                        <tr>
-                            <td><?= $no++ ?></td>
-                            <td><?= $data ['nama_produk'] ?></td>
-                            <td><?= $data ['merk'] ?></td>
-                            <td><?= $data['harga_beli'] ?></td>
-                            <td><?= $data['harga_jual'] ?></td>
-                            <td><?= $data['created_at'] ?></td>
-                            <td><?= $data['updated_at'] ?></td>
-                            <td><?= $data['stok'] ?></td>
-                            <td>
-                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalUbah<?= $no ?>">Ubah</a>
-                            <a href="#" class="btn btn-danger"data-bs-toggle="modal" data-bs-target="#modalHapus<?= $no ?>">Hapus</a>
-                            </td>
-                        </tr>
-                
-<!-- Modal Ubah-->
-<div class="modal fade" id="modalUbah<?= $no ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">UBAH</h5>
-        <button class="btn-primary" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="modal-body">
-        <form method="POST" action="aksi_crud.php">
-            <input type="hidden" name= "id_produk" value= "<?= $data['id_produk']?>">
-          <div class="mb-3">
-            <label class="form-label">Nama Produk</label>
-            <input type="text" class="form-control" name="tproduk" value="<?= $data['nama_produk'] ?>">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Merk</label>
-            <input type="text" class="form-control" name="tmerk" value="<?= $data['merk'] ?>">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Harga Beli</label>
-            <input type="text" class="form-control" name="tharga_beli" value="<?= $data['harga_beli'] ?>">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Harga Jual</label>
-            <input type="text" class="form-control" name="tharga_jual" value="<?= $data['harga_jual'] ?>">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">STOK</label>
-            <input type="text" class="form-control" name="tstok" value="<?= $data['stok'] ?>">
-          </div>
-          <button type="submit" class="btn btn-primary" name="b-ubah">Update</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+                                            $tampil = mysqli_query($koneksi, "SELECT penjualan.id_penjualan, penjualan.tgl_penjualan, penjualan.total, user.username 
+                                                                                FROM penjualan 
+                                                                                JOIN user ON penjualan.id_user = user.id_user 
+                                                                                WHERE MONTH(penjualan.tgl_penjualan) = '$bulan' AND YEAR(penjualan.tgl_penjualan) = '$tahun'
+                                                                                ORDER BY penjualan.tgl_penjualan DESC");
+                                        } elseif (isset($_GET['hari']) && $_GET['hari'] == 'cek') {
+                                            $tanggal = $_POST['hari'];
 
+                                            $tampil = mysqli_query($koneksi, "SELECT penjualan.id_penjualan, penjualan.tgl_penjualan, penjualan.total, user.username 
+                                                                                FROM penjualan 
+                                                                                JOIN user ON penjualan.id_user = user.id_user 
+                                                                                WHERE DATE(penjualan.tgl_penjualan) = '$tanggal'
+                                                                                ORDER BY penjualan.tgl_penjualan DESC");
+                                        } else {
+                                            $tampil = mysqli_query($koneksi, "SELECT penjualan.id_penjualan, penjualan.tgl_penjualan, penjualan.total, user.username 
+                                                                                FROM penjualan 
+                                                                                JOIN user ON penjualan.id_user = user.id_user 
+                                                                                ORDER BY penjualan.tgl_penjualan DESC");
+                                        }
 
-<!-- Modal Hapus-->
-<div class="modal fade" id="modalHapus<?= $no ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">HAPUS</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form method="POST" action="aksi_crud.php">
-            <input type="hidden" name= "id_produk" value= "<?= $data['id_produk']?>">
+                                    $no = 1;
+                                    while ($data = mysqli_fetch_array($tampil)):
 
-            <h5 class="text-center">Apakah anda ingin menghappus produk ini? <br>
-                            <span class="text-danger"><?= $data['nama_produk']?></span>
+                                    ?>
+                                    <tr>
+                                        <td><?= $data['id_penjualan'] ?></td>
+                                        <td><?= $data['tgl_penjualan'] ?></td>
+                                        <td><a>Rp.</a><?= $data['total'] ?></td>
+                                        <td><?= $data['username'] ?></td>
+                                        <td>
+                                        <a href="lihatnota.php?id=<?= $data['id_penjualan'] ?>" class="btn btn-primary" target="_blank">Lihat</a>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                    $no++;
+                                    endwhile;
 
-            </h5>
-          
-          <button type="submit" class="btn btn-danger" name="b-hapus">Hapus</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>                         
-<?php endwhile; ?>
+                                    ?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-
+       
 
 
         <!--pagination-->
@@ -662,3 +618,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </body>
 </html>
+
+
+
+

@@ -117,7 +117,7 @@ if(!isset($_SESSION['id_user'])){
                     <span>Kasir</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="laporan.php">
                     <i class="fa-solid fa-money-bill-transfer"></i>
                     <span>Laporan</span></a>
             </li>
@@ -345,9 +345,10 @@ if(!isset($_SESSION['id_user'])){
                         <input type="text" class="form-control form-control-sm" name="merk">
                     </div>
                     <label class="col-sm-4 col-form-label col-form-label-sm"><b>Harga Beli :</b></label>
-                <div class="col-sm-8 mb-2">
-                    <input type="text" class="form-control form-control-sm" name="harga_beli" id="harga_beli" oninput="calculateTotal()">
-                </div>
+                    <div class="col-sm-8 mb-2">
+                        <input type="text" class="form-control form-control-sm" name="harga_beli">
+                    </div>
+                  
                     <label class="col-sm-4 col-form-label col-form-label-sm"><b>Kategori :</b></label>
                     <div class="col-sm-8 mb-2">
                     <select class="form-select" name="t_kategori">
@@ -371,14 +372,13 @@ if(!isset($_SESSION['id_user'])){
                         <input type="text" class="form-control form-control-sm" name="harga_jual">
                     </div> -->
                     <label class="col-sm-4 col-form-label col-form-label-sm"><b>Stok :</b></label>
-                <div class="col-sm-8 mb-2">
-                    <input type="text" class="form-control form-control-sm" name="stok" id="stok" oninput="calculateTotal()">
-                </div>
-
-                <label class="col-sm-4 col-form-label col-form-label-sm"><b>Total Pembayaran :</b></label>
-                <div class="col-sm-8 mb-2">
-                    <input type="text" class="form-control form-control-sm" name="total_pembayaran" id="total_pembayaran" readonly>
-                </div>
+                    <div class="col-sm-8 mb-2">
+                        <input type="text" class="form-control form-control-sm" name="stok">
+                    </div>
+                    <label class="col-sm-4 col-form-label col-form-label-sm"><b>Total Pembayaran :</b></label>
+                    <div class="col-sm-8 mb-2">
+                        <input type="text" class="form-control form-control-sm" name="total_pembayaran">
+                    </div>
                     <label class="col-sm-4 col-form-label col-form-label-sm"><b>Suplier :</b></label>
                     <div class="col-sm-8 mb-2">
                     <select class="form-select" name="t_supplier">
@@ -443,7 +443,6 @@ $pembelian_id = ($max_id !== null) ? $max_id + 1 : 1;
 
 // Menyimpan pembelian ke database
 $sql_pembelian = "INSERT INTO pembelian(id_pembelian, tanggal, total_pembayaran) VALUES ('$pembelian_id', '$tgl_input','$total_pembayaran')";
-
 if (mysqli_query($conn, $sql_pembelian)) {
     
     // Mendapatkan ID terbaru dari detail pembelian
@@ -453,8 +452,8 @@ if (mysqli_query($conn, $sql_pembelian)) {
     $detailpembelian_id = ($max_detail_id !== null) ? $max_detail_id + 1 : 1;
 
     // Menyimpan detail pembelian ke database
-    $sql_detail_pembelian = "INSERT INTO detail_pembelian(id_detailpembelian, id_pembelian, jumlah,merk , nama_produk, harga, id_kategori, id_suplier) 
-    VALUES ('$detailpembelian_id','$pembelian_id','$stok','$merk' ,'$nama_barang','$harga_beli','$id_kategori','$id_supplier')";
+    $sql_detail_pembelian = "INSERT INTO detail_pembelian(id_detailpembelian, id_pembelian, jumlah,merk ,tanggal, nama_produk, harga, id_kategori, id_suplier) 
+    VALUES ('$detailpembelian_id','$pembelian_id','$stok','$merk' ,'$tgl_input','$nama_barang','$harga_beli','$id_kategori','$id_supplier')";
 
     if (mysqli_query($conn, $sql_detail_pembelian)) {
         echo '<script>alert("Data berhasil disimpan");</script>';
@@ -647,21 +646,6 @@ if (mysqli_query($conn, $sql_pembelian)) {
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-
-    <script>
-    function calculateTotal() {
-        // Get the values of Harga Beli and Stok
-        var hargaBeli = document.getElementById("harga_beli").value;
-        var stok = document.getElementById("stok").value;
-
-        // Calculate the total payment
-        var totalPayment = hargaBeli * stok;
-
-        // Display the total payment in the "Total Pembayaran" input field
-        document.getElementById("total_pembayaran").value = totalPayment;
-    }
-</script>
-
 
 </body>
 </html>

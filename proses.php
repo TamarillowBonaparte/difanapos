@@ -51,16 +51,18 @@ if(isset($_POST['proses'])) {
         $hasil = mysqli_query($koneksi, $ambilID);
 
         $row = $hasil->fetch_assoc();
-
         $subtotal = $row['harga_jual'] * $jumlahItem;
 
         // Melakukan query untuk INSERT ke tabel 'detailpenjualan'
         $query2 = "INSERT INTO detail_penjualan VALUES ('', '$idbarang', '$jumlahItem', '$subtotal', '$id_penjualan')";
         $result2 = mysqli_query($koneksi, $query2);
+
+        $minStok = $row['Jumlah'] - $jumlahItem;
+        $kurangiStok = mysqli_query($koneksi, "UPDATE barang SET Jumlah = '$minStok' WHERE Barang_ID = '$idbarang'");
     }
 
     // Redirect setelah selesai mengolah data
-    header('Location: home.php');
+    header('Location: kasir.php');
 }
 
 ?>
@@ -81,32 +83,7 @@ if(isset($_POST['proses'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body class="sb-nav">
-    <nav class="sb-topnav navbar navbar-expand maincol">
-        <!-- Navbar Brand-->
-        <img class="ms-3" src="assets/img/logo dijee.png" alt="" style="width: 40px;">
-        <a class="h4 namatoko" href="home.php">Toko DiJEE</a>
-        <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 p" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-        <!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-            </div>
-        </form>
-        <!-- Navbar-->
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4 d-flex justify-content-end">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-circle-user fa-2xl"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="akun-karyawan.php">Profil</a></li>
-                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                    <li><hr class="dropdown-divider" /></li>
-                    <li><a class="dropdown-item" href="logout.php">Logout</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
+    
     <div id="layoutSidenav_content">
         <main>
             <div class="p-4">
@@ -133,7 +110,7 @@ if(isset($_POST['proses'])) {
                                         <thead>
                                             <tr>
                                                 <td> ID</td>
-                                                <td> Nama Barang</td>
+                                                <td> Nama Produk</td>
                                                 <td> Harga</td>
                                                 <td style="width:10%;"> Jumlah</td>
                                                 <td style="width:20%;"> SubTotal</td>
@@ -203,11 +180,19 @@ if(isset($_POST['proses'])) {
                                     </div>
                                 </div>
                                 <button class="btn btn-primary float-end" name="proses">Proses</button>
+                                <tr>
+								<td>
+                                    <a href="print.php" target="_blank" class="btn btn-secondary">
+                                        <i class="fa fa-print"></i> Print Untuk Bukti Pembayaran
+                                    </a>
+                                </td>
+
+							</tr>
                             </div>
+                           
                         </div>
                     </div>
-                </form>
-                
+                </form>  
             </div>
         </main>
     </div>
