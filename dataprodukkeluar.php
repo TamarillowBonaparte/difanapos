@@ -125,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
          <div class="px-3">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Data Semua User</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Data Produk Keluar</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -133,11 +133,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Username</th>
-                                    <th>Email</th>
-                                    <th>Password</th>
-                                    <th>level</th>
-                                    <th>Nomer Telpon</th>
+                                    <th>Nama Produk</th>
+                                    <th>Jumlah</th>
+                                    <th>Catatan</th>
+                                    <th>Tanggal</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -145,16 +144,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         <?php
                             $no = 1;
-                            $tampil = mysqli_query($koneksi, "SELECT * FROM user ORDER BY id_user ASC");
+                            $tampil = mysqli_query($koneksi, "SELECT * FROM produkkeluar ORDER BY id_produkkeluar ASC");
                             while ($data = mysqli_fetch_array($tampil)) :
                         ?>
                             <tr>
                                     <td><?= $no++ ?></td>
-                                    <td><?= $data['username'] ?></td>
-                                    <td><?= $data['email'] ?></td>
-                                    <td><?= $data['password'] ?></td>
-                                    <td><?= $data['level'] == 1 ? 'Admin' : 'Karyawan' ?></td>
-                                    <td>+62 <?= $data['nomer-telp'] ?></td>
+                                    <td><?= $data['id_produk'] ?></td>
+                                    <td><?= $data['jumlah'] ?></td>
+                                    <td><?= $data['catatan'] ?></td>
+                                    <td><?= $data['tanggal'] == 1 ? 'Admin' : 'Karyawan' ?></td>
                                 <td>
                                 <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalUbahUser<?= $no ?>">Ubah</a>
                                 <a href="#" class="btn btn-danger"data-bs-toggle="modal" data-bs-target="#modalHapus<?= $no ?>">Hapus</a>
@@ -198,6 +196,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 </div>
                             </div>
                             </div>
+                            <!--End OF Tabel user-->
+
+                            
 
                             <!-- Modal Hapus-->
                             <div class="modal fade" id="modalHapus<?= $no ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -227,6 +228,112 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </div>
+
+
+    <!-- DataTales Semua User -->
+    <div class="px-3">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Data Produk Keluar</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Produk</th>
+                                    <th>Jumlah</th>
+                                    <th>Catatan</th>
+                                    <th>Tanggal</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                        <tbody>
+
+                        <?php
+                            $no = 1;
+                            $tampil = mysqli_query($koneksi, "SELECT * FROM produkkeluar ORDER BY id_produkkeluar ASC");
+                            while ($data = mysqli_fetch_array($tampil)) :
+                        ?>
+                            <tr>
+                                    <td><?= $no++ ?></td>
+                                    <td><?= $data['id_produk'] ?></td>
+                                    <td><?= $data['jumlah'] ?></td>
+                                    <td><?= $data['catatan'] ?></td>
+                                    <td><?= $data['tanggal'] == 1 ? 'Admin' : 'Karyawan' ?></td>
+                                <td>
+                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalUbahUser<?= $no ?>">Ubah</a>
+                                <a href="#" class="btn btn-danger"data-bs-toggle="modal" data-bs-target="#modalHapus<?= $no ?>">Hapus</a>
+                                </td>
+                            </tr>
+        
+                            <!-- Modal Ubah-->
+                            <div class="modal fade" id="modalUbahUser<?= $no ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">UBAH</h5>
+                                    <button class="btn-primary" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="aksi_crud.php">
+                                        <input type="hidden" name= "id_user" value= "<?= $data['id_user'] ?>">
+                                    <div class="mb-3">
+                                        <label class="form-label">Username</label>
+                                        <input type="text" class="form-control" name="t_username" value="<?= $data['username'] ?>">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="text" class="form-control" name="t_email" value="<?= $data['email'] ?>">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Password</label>
+                                        <input type="text" class="form-control" name="t_password" value="<?= $data['password'] ?>">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">level</label>
+                                        <input type="text" class="form-control" name="t_level" value="<?= $data['level'] ?>">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Nomer Telpon</label>
+                                        <input type="text" class="form-control" name="t_nomertelp" value="<?= $data['nomer-telp'] ?>">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" name="UbahUser">Update</button>
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                            
+                            <!-- Modal Hapus-->
+                            <div class="modal fade" id="modalHapus<?= $no ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="staticBackdropLabel">HAPUS</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form method="POST" action="aksi_crud.php">
+                                                                    <input type="hidden" name= "id_produk" value= "<?= $data['id_produk'] ?>">
+
+                                                                    <h5 class="text-center">Apakah anda ingin menghappus produk ini? <br>
+                                                                                    <span class="text-danger"><?= $data['nama_produk'] ?></span>
+                                                                    </h5>
+                                                                <button type="submit" class="btn btn-danger" name="b-hapus">Hapus</button>
+                                                                </form>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>                         
+                                                        <?php endwhile; ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 
     <!-- Bootstrap core JavaScript-->

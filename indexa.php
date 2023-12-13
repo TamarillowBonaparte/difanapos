@@ -1,50 +1,49 @@
 <?php
-
-    require ('koneksi.php');
-
-    session_start();
+require('koneksi.php');
+session_start();
+if (isset($_POST['submit'])) {
+    $email = $_POST['txt_username'];
+    $pass = $_POST['txt_pass'];
+    $emailCheck = mysqli_real_escape_string($koneksi, $email);
+    $passCheck = mysqli_real_escape_string($koneksi, $pass);
     
-    if(isset($_POST['submit'])){
+    if (!empty(trim($email)) && !empty(trim($pass))) {
 
-        $email = $_POST['txt_username'];
-        $pass = $_POST['txt_pass'];
+        //select data berdasarkan username dari database
+        $query = "SELECT * FROM user WHERE email = '$email'";
+        $result = mysqli_query($koneksi, $query);
+        $num = mysqli_num_rows($result);
 
-        $emailCheck = mysqli_real_escape_string($koneksi, $email);
-        $passCheck = mysqli_real_escape_string($koneksi, $pass);
+        while ($row = mysqli_fetch_array($result)) {
 
-        if(!empty (trim($email)) && !empty(trim($pass))) {
+            $id = $row['id_user'];
+            $userVal = $row['email'];
+            $passVal = $row['password'];
+            $userName = $row['username'];
+            $level = $row['level'];
+        }
+        if ($num != 0) {
+            if ($userVal == $email && $passVal == $pass) {
 
-            $query = "SELECT * FROM user WHERE username = '$email'";
-            $result = mysqli_query($koneksi, $query);
-            $num = mysqli_num_rows($result);
-
-            while ($row = mysqli_fetch_array($result)) {
-                $id = $row['id'];
-                $userVal = $row['user_email'];
-                $passVal = $row['user_password'];
-                $userName = $row['user_fullname'];
-                $level = $row['id'];
-            }
-
-            if($num != 0 ) {
-                if($userVal == $email && $passVal == $pass) {
-
-                    // header('Location: home.php');
-                    $_SESSION['id'] = $id;
-                    $_SESSION['name'] = $userName;
-                    $_SESSION['level'] = $level;
-                    header('Location: home.php');
-                } else {
-
-                    $error = 'user atau password salah!!';
-                }
+                $_SESSION['id_user'] = $id;
+                $_SESSION['username'] = $userName;
+                $_SESSION['level'] = $level;
+                header('Location: home.php');
+            } else {
+                $error = 'user atau pass salah!!';
+                //header('Location: index.php');
             }
         } else {
-
-            $error = 'Data tidak boleh kosong !!';
+            $error = 'user tidak ditemukan';
+            //header('Location: index.php');
         }
+    } else {
+        $error = 'Data tidak boleh kosong';
+       // echo $error;
     }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,7 +55,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>DIFANA POS</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -66,6 +65,9 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- <link href="css/login.css" rel="stylesheet"> -->
+
+    
 
 </head>
 
@@ -93,7 +95,7 @@
                                             <label for="inputEmail">Username</label>
                                                 <input class="form-control" type="text" placeholder="username" name="txt_username"/>
                                                 <!-- <label for="inputEmail">Username</label> -->
-                                                <div class=""><?php global $error; echo $error ?></div>
+                                                <div  class=""><?php global $error; echo $error ?></div>
                                             </div>
                                             <div class="form-floating mb-3">
                                             <label for="inputPassword">Password</label>
@@ -101,17 +103,10 @@
                                                 <!-- <label for="inputPassword">Password</label> -->
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="password.html">Lupa Password?</a>
                                                 <button class="btn btn-success fs-5" type="submit" name="submit">Login</button>
                                             </div>
                                         </form>
                                     <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -133,6 +128,21 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById('txt_pass');
+            var passwordVisibilityToggle = document.getElementById('passwordVisibilityToggle');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordVisibilityToggle.textContent = 'Hide';
+            } else {
+                passwordInput.type = 'password';
+                passwordVisibilityToggle.textContent = 'Show';
+            }
+        }
+    </script>
 
 </body>
 

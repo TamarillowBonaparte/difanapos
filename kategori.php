@@ -20,13 +20,11 @@ if(!isset($_SESSION['id_user'])){
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>SIDINAF</title>
     <link rel="icon" href="logo atas.png" type="image/x-icon">
 
@@ -44,265 +42,9 @@ if(!isset($_SESSION['id_user'])){
 </head>
 
 <body id="page-top">
-
     <!-- Page Wrapper -->
     <div id="wrapper">
-
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="home.php">
-            <div class="sidebar-brand-icon ">
-                <!-- Menambahkan gaya CSS untuk mengontrol ukuran gambar -->
-                <img src="logo atas.png" alt="Logo" style="max-width: 65px; max-height: 65px;">
-            </div>
-            <div class="sidebar-brand-text mx-3">SIDINAF</div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="home.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard </span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fa-solid fa-book"></i>
-                    <span>Produk</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Fitur Data Produk :</h6>
-                        <a class="collapse-item" href="produk.php">Data Produk</a>
-                        <a class="collapse-item" href="data_pembelian.php">Data Pembelian</a>
-                        <a class="collapse-item" href="kategori.php">Kategori</a>
-                        <!-- <a class="collapse-item" href="cards.html">Data Produk Return</a> -->
-                    </div>
-                </div>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="kasir.php">
-                    <i class="fa-solid fa-cash-register"></i>
-                    <span>Kasir</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="laporan.php">
-                    <i class="fa-solid fa-money-bill-transfer"></i>
-                    <span>Laporan</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fa-solid fa-person-chalkboard"></i>
-                    <span>Manajemen Karyawan</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.php">Login</a>
-                        <a class="collapse-item" href="register.php">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
-                </div>
-            </li>
-            <!-- Nav Item - Charts -->
-
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-
-
-        </ul>
-        <!-- End of Sidebar -->
-
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
-
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#"></a>
-                            </div>
-                        </li>
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                                <?php
-                        
-                                if (isset($_SESSION['username'])) {
-                                    echo $_SESSION['username'];
-                                } else {
-                                    echo 'DefaultUsername'; // Provide a default if the session variable is not set
-                                }
-                                ?>
-                            </span>
-                            <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
-                        </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="logout.php">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </nav>
-                <!-- End of Topbar -->
+    <?php require_once "navbar.php "; ?>
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -312,72 +54,10 @@ if(!isset($_SESSION['id_user'])){
                 </div>
 
 
-<div class="px-3">
-<!-- Inputan Barang 1-->
-<div class="row">
-    <div class="col-6 mb-3">
-        <div class="card" >
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Input Suplier Baru</h6>
-            </div>
-                <div class="card-body py-4">
-                    <form method="POST">
-                        <div class="form-group row mb-0">
-                            <label class="col-sm-4 col-form-label col-form-label-sm"><b>Nama Suplier :</b></label>
-                        <div class="col-sm-8 mb-2">
-                            <input type="text" class="form-control form-control-sm" name="nama_suplier">
-                        </div>
-                        <label class="col-sm-4 col-form-label col-form-label-sm"><b>Alamat :</b></label>
-                        <div class="col-sm-8 mb-2">
-                            <input type="text" class="form-control form-control-sm" name="alamat">
-                        </div>
-                        <label class="col-sm-4 col-form-label col-form-label-sm"><b>Nomer Telpon :</b></label>
-                        <div class="col-sm-8 mb-2">
-                            <input type="text" class="form-control form-control-sm" name="no_telp">
-                        </div>
-                        <div class="container d-flex justify-content-end align-items-center">
-                            <button type="submit" class="btn btn-primary" name="tambahsup">Tambah</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!--End Inputan Barang 1-->
-
-    <!-- Inputan Barang 2-->
-    <div class="col-6 mb-3">
-        <div class="card" >
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Input Kategori Baru</h6>
-            </div>
-                <div class="card-body py-4">
-                    <form method="POST">
-                        <div class="form-group row mb-0">
-                            <label class="col-sm-4 col-form-label col-form-label-sm"><b>Nama Kategori :</b></label>
-                        <div class="col-sm-8 mb-2">
-                            <input type="text" class="form-control form-control-sm" name="nama_kategori">
-                        </div>
-                        <div class="container d-flex justify-content-end align-items-center">
-                            <button type="submit" class="btn btn-primary" name="tambahkategori">Tambah</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!--End Inputan Barang 2 -->
-
 
 <?php
 
-$servername = "localhost";  // Ganti dengan nama server database Anda
-$username = "root";    // Ganti dengan nama pengguna database Anda
-$password = "";    // Ganti dengan kata sandi database Anda
-$dbname = "toko"; // Ganti dengan nama database Anda
-
-$koneksi = new mysqli($servername, $username, $password, $dbname);
+$koneksi = new mysqli($server, $username, $password, $db);
 $result = mysqli_query($koneksi, "SELECT MAX(id_supplier) as max_id FROM supplier");
 $row = mysqli_fetch_assoc($result);
 $max_id = $row['max_id'];
@@ -414,7 +94,7 @@ if (isset ($_POST['tambahkategori'])) {
     $tgl_input = $_POST["tgl_input"];
 
 
-    $koneksi = new mysqli($servername, $username, $password, $dbname);
+    $koneksi = new mysqli($server, $username, $password, $db);
 
 
     // Query SQL untuk memasukkan data ke dalam database
@@ -434,14 +114,17 @@ if (isset ($_POST['tambahkategori'])) {
 }
 ?>
 
-            <!-- DataTales Example -->
-            <div class="row">
-                <div class="col-6">
+            <!-- DataTales Supplier -->
+            <div class="row px-3">
+                <div class="col-7">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Data Suplier</h6>
                         </div>
                         <div class="card-body">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                Tambah Supplier
+                                </button>
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
@@ -456,7 +139,7 @@ if (isset ($_POST['tambahkategori'])) {
                                     <tbody>
                                         <?php
                                         $no = 1;
-                                        $tampil = mysqli_query($koneksi, "SELECT * FROM supplier ORDER BY id_supplier DESC"); while ($data = mysqli_fetch_array($tampil)):
+                                        $tampil = mysqli_query($koneksi, "SELECT * FROM supplier ORDER BY id_supplier ASC"); while ($data = mysqli_fetch_array($tampil)):
                                         ?>
 
                                         <tr>
@@ -475,33 +158,25 @@ if (isset ($_POST['tambahkategori'])) {
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="staticBackdropLabel">UBAH</h5>
+                                                        <h5 class="modal-title" id="staticBackdropLabel">Ubah Data Supplier</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
                                                         <form method="POST" action="aksi_crud.php">
-                                                            <input type="hidden" name= "id_produk" value= "<?= $data['id_produk']?>">
+                                                            <input type="hidden" name= "id_supplier" value= "<?= $data['id_supplier']?>">
                                                             <div class="mb-3">
-                                                                <label class="form-label">Nama Produk</label>
-                                                                <input type="text" class="form-control" name="tproduk" value="<?= $data['nama_produk'] ?>">
+                                                                <label class="form-label">Nama Supplier :</label>
+                                                                <input type="text" class="form-control" name="tsupplier" value="<?= $data['nama_supplier'] ?>">
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label class="form-label">Merk</label>
-                                                                <input type="text" class="form-control" name="tmerk" value="<?= $data['merk'] ?>">
+                                                                <label class="form-label">Alamat :</label>
+                                                                <input type="text" class="form-control" name="talamat" value="<?= $data['alamat'] ?>">
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label class="form-label">Harga Beli</label>
-                                                                <input type="text" class="form-control" name="tharga_beli" value="<?= $data['harga_beli'] ?>">
+                                                                <label class="form-label">Nomer Telp :</label>
+                                                                <input type="text" class="form-control" name="tnotelp" value="<?= $data['no_telp'] ?>">
                                                             </div>
-                                                            <div class="mb-3">
-                                                                <label class="form-label">Harga Jual</label>
-                                                                <input type="text" class="form-control" name="tharga_jual" value="<?= $data['harga_jual'] ?>">
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="form-label">no_telp</label>
-                                                                <input type="text" class="form-control" name="tno_telp" value="<?= $data['no_telp'] ?>">
-                                                            </div>
-                                                            <button type="submit" class="btn btn-primary" name="b-ubah">Update</button>
+                                                            <button type="submit" class="btn btn-primary" name="ubahsupplier">Update Data</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -518,11 +193,11 @@ if (isset ($_POST['tambahkategori'])) {
                                                     </div>
                                                     <div class="modal-body">
                                                         <form method="POST" action="aksi_crud.php">
-                                                            <input type="hidden" name= "id_produk" value= "<?= $data['id_produk']?>">
+                                                            <input type="hidden" name= "id_supplier" value= "<?= $data['id_supplier']?>">
                                                             <h5 class="text-center">Apakah anda ingin menghappus produk ini? <br>
-                                                                <span class="text-danger"><?= $data['nama_produk']?></span>
+                                                                <span class="text-danger"><?= $data['nama_supplier']?></span>
                                                             </h5>                                            
-                                                            <button type="submit" class="btn btn-danger" name="b-hapus">Hapus</button>
+                                                            <button type="submit" class="btn btn-danger" name="supplier-hapus">Hapus</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -535,73 +210,92 @@ if (isset ($_POST['tambahkategori'])) {
                         </div>
                     </div>
                 </div>
-                <!--Tabel Kedua-->
-                <div class="col-6">
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Tambah Supplier</h5>
+                                    <span class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    <i class="fa-solid fa-circle-xmark fa-2xl" style="color: #046df6;"></i></span>
+
+                            </div>
+                            <div class="modal-body">
+                                <form method="POST" action="aksi_crud.php">
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Nama Supplier :</label>
+                                        <input type="text" class="form-control" name="namasup" id="exampleFormControlInput1" placeholder="Masukkan Nama Supplier">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Alamat :</label>
+                                        <input type="text" class="form-control" name="alamat" id="exampleFormControlInput1" placeholder="Masukkan Alamat Supplier">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Nomer Telpon :</label>
+                                        <input type="text" class="form-control" name="no_telp" id="exampleFormControlInput1" placeholder="Masukkan Nomer Telpon">
+                                    </div>
+                                
+                            </div>
+                            <div class="modal-footer ">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" name="b-sup" class="btn btn-primary">Simpan</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Tabel Kategori-->
+                <div class="col-5">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Data Suplier</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Data Kategori</h6>
                         </div>
                         <div class="card-body">
+                        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalTambahKategori">
+                                Tambah Kategori
+                                </button>
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="datatablesSimple" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama Supplier</th>
-                                            <th>Alamat</th>
-                                            <th>No Telpon</th>
+                                            <th>Nama Kategori</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
                                         $no = 1;
-                                        $tampil = mysqli_query($koneksi, "SELECT * FROM supplier ORDER BY id_supplier DESC"); while ($data = mysqli_fetch_array($tampil)):
+                                        $tampil = mysqli_query($koneksi, "SELECT * FROM kategori ORDER BY id_kategori ASC"); while ($data = mysqli_fetch_array($tampil)):
                                         ?>
 
                                         <tr>
                                             <td><?= $no++ ?></td>
-                                            <td><?= $data ['nama_supplier'] ?></td>
-                                            <td><?= $data ['alamat'] ?></td>
-                                            <td><?= $data['no_telp'] ?></td>
+                                            <td><?= $data ['nama_kategori'] ?></td>
                                             <td>
-                                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalUbah<?= $no ?>">Ubah</a>
-                                            <a href="#" class="btn btn-danger"data-bs-toggle="modal" data-bs-target="#modalHapus<?= $no ?>">Hapus</a>
+                                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalUbahKategori<?= $no ?>">Ubah</a>
+                                            <a href="#" class="btn btn-danger"data-bs-toggle="modal" data-bs-target="#modalHapusKategori<?= $no ?>">Hapus</a>
                                             </td>
                                         </tr>
                 
                                         <!-- Modal Ubah-->
-                                        <div class="modal fade" id="modalUbah<?= $no ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal fade" id="modalUbahKategori<?= $no ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="staticBackdropLabel">UBAH</h5>
+                                                        <h5 class="modal-title" id="staticBackdropLabel">Ubah Data Supplier</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
                                                         <form method="POST" action="aksi_crud.php">
-                                                            <input type="hidden" name= "id_produk" value= "<?= $data['id_produk']?>">
+                                                            <input type="hidden" name= "id_kategori" value= "<?= $data['id_kategori']?>">
                                                             <div class="mb-3">
-                                                                <label class="form-label">Nama Produk</label>
-                                                                <input type="text" class="form-control" name="tproduk" value="<?= $data['nama_produk'] ?>">
+                                                                <label class="form-label">Nama Kategori :</label>
+                                                                <input type="text" class="form-control" name="tkategori" value="<?= $data['nama_kategori'] ?>">
                                                             </div>
-                                                            <div class="mb-3">
-                                                                <label class="form-label">Merk</label>
-                                                                <input type="text" class="form-control" name="tmerk" value="<?= $data['merk'] ?>">
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="form-label">Harga Beli</label>
-                                                                <input type="text" class="form-control" name="tharga_beli" value="<?= $data['harga_beli'] ?>">
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="form-label">Harga Jual</label>
-                                                                <input type="text" class="form-control" name="tharga_jual" value="<?= $data['harga_jual'] ?>">
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label class="form-label">no_telp</label>
-                                                                <input type="text" class="form-control" name="tno_telp" value="<?= $data['no_telp'] ?>">
-                                                            </div>
-                                                            <button type="submit" class="btn btn-primary" name="b-ubah">Update</button>
+                                                            <button type="submit" class="btn btn-primary" name="ubahkategori">Update Data</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -609,20 +303,20 @@ if (isset ($_POST['tambahkategori'])) {
                                         </div>  
 
                                         <!-- Modal Hapus-->
-                                        <div class="modal fade" id="modalHapus<?= $no ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal fade" id="modalHapusKategori<?= $no ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="staticBackdropLabel">HAPUS</h5>
+                                                        <h5 class="modal-title" id="staticBackdropLabel">Hapus</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
                                                         <form method="POST" action="aksi_crud.php">
-                                                            <input type="hidden" name= "id_produk" value= "<?= $data['id_produk']?>">
+                                                            <input type="hidden" name= "id_kategori" value= "<?= $data['id_kategori']?>">
                                                             <h5 class="text-center">Apakah anda ingin menghappus produk ini? <br>
-                                                                <span class="text-danger"><?= $data['nama_produk']?></span>
+                                                                <span class="text-danger"><?= $data['nama_kategori']?></span>
                                                             </h5>                                            
-                                                            <button type="submit" class="btn btn-danger" name="b-hapus">Hapus</button>
+                                                            <button type="submit" class="btn btn-danger" name="kategori-hapus">Hapus</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -635,7 +329,32 @@ if (isset ($_POST['tambahkategori'])) {
                         </div>
                     </div>
                 </div>
-            </div>
+
+                        <!-- Modal Tambah -->
+                        <div class="modal fade" id="modalTambahKategori" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Tambah Kategori</h5>
+                                    <span class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    <i class="fa-solid fa-circle-xmark fa-2xl" style="color: #046df6;"></i></span>
+
+                            </div>
+                            <div class="modal-body">
+                                <form method="POST" action="aksi_crud.php">
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Nama Kategorri :</label>
+                                        <input type="text" class="form-control" name="namakategori" id="exampleFormControlInput1" placeholder="Masukkan Nama Kategorir">
+                                    </div>
+                            </div>
+                            <div class="modal-footer ">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" name="b-kategori" class="btn btn-primary">Simpan</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
 
 
@@ -668,7 +387,6 @@ if (isset ($_POST['tambahkategori'])) {
                 </div>
 
                 <!-- Bootstrap core JavaScript-->
-                <script src="vendor/jquery/jquery.min.js"></script>
                 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
                 <script src="js/datatables-simple-demo.js"></script>
 

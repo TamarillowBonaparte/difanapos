@@ -25,8 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $response = "IDs yang diterima: " . print_r($ids, true) . "<br>";
 $response2 = "Jumlah Barang yang diterima: " . print_r($jumlahBarang, true) . "<br>";
 
-echo $response;
-echo $response2;
+var_dump($_REQUEST);
 
 if(isset($_POST['proses'])) {
     $tglPenjualan = $_POST['tgl'];
@@ -35,7 +34,7 @@ if(isset($_POST['proses'])) {
     $kembali = $_POST['kembalian'];
 
     // Melakukan query untuk INSERT ke tabel 'penjualan'
-    $query = "INSERT INTO penjualan VALUES ('', '$tglPenjualan', '$totalbayar', '$bayar', '$kembali', '$sesID')";
+    $query = "INSERT INTO penjualan VALUES ('',  '$sesID','$tglPenjualan', '$totalbayar', '$bayar', '$kembali')";
     $result = mysqli_query($koneksi, $query);
 
     // Mendapatkan ID terakhir yang dihasilkan oleh query INSERT sebelumnya
@@ -54,15 +53,17 @@ if(isset($_POST['proses'])) {
         $subtotal = $row['harga_jual'] * $jumlahItem;
 
         // Melakukan query untuk INSERT ke tabel 'detailpenjualan'
-        $query2 = "INSERT INTO detail_penjualan VALUES ('', '$idbarang', '$jumlahItem', '$subtotal', '$id_penjualan')";
+        $query2 = "INSERT INTO detail_penjualan VALUES ('', '$idbarang', '$jumlahItem','$id_penjualan' ,'$subtotal' )";
         $result2 = mysqli_query($koneksi, $query2);
 
-        $minStok = $row['Jumlah'] - $jumlahItem;
-        $kurangiStok = mysqli_query($koneksi, "UPDATE barang SET Jumlah = '$minStok' WHERE Barang_ID = '$idbarang'");
+        $minStok = $row['stok'] - $jumlahItem;
+        $kurangiStok = mysqli_query($koneksi, "UPDATE produk SET stok = '$minStok' WHERE id_produk = '$idbarang'");
     }
 
     // Redirect setelah selesai mengolah data
     header('Location: kasir.php');
+} else {
+    echo "Error: " . mysqli_error($koneksi);
 }
 
 ?>

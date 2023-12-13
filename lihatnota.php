@@ -18,15 +18,58 @@ $ambil_tgl = $tanggal->fetch_assoc();
 $kasir = mysqli_query($koneksi, "SELECT penjualan.id_user, user.username FROM penjualan JOIN user ON penjualan.id_user = user.id_user WHERE id_penjualan = '$PilihID'");
 $ambilKasir = $kasir->fetch_assoc();
 $namaKasir = $ambilKasir['username'];
-
 ?>
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>print</title>
     <link rel="stylesheet" href="assets/css/bootstrap.css">
     <style>
-      
+        @media print {
+            body {
+                width: 80mm;
+                margin: 0;
+                padding: 0;
+            }
 
+            .container {
+                width: 100%;
+            }
+
+            table {
+                width: 100%;
+            }
+
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+
+            th, td {
+                padding: 5px;
+                text-align: left;
+            }
+
+            th {
+                background-color: #f2f2f2;
+            }
+
+            .pull-right {
+                text-align: right;
+                margin-top: 10px;
+            }
+
+            p.dashed-line {
+                border-bottom: 1px dashed #000;
+                padding-bottom: 2px;
+                margin-bottom: 2px;
+            }
+
+            .col-print {
+                display: none; /* Hide the columns in print mode */
+            }
+        }
     </style>
 </head>
 
